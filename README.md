@@ -4,6 +4,9 @@ A premium, interactive, and beautifully animated custom Lovelace weather card fo
 
 The card is **100% self-contained**—all configurations, unit toggles, and asset mapping are handled directly inside the Lovelace card parameters without requiring any custom theme-level variables, backend font automation wrappers, or entity overrides.
 
+![Galleria Weather Card - Compact Mode](screenshot-compact.png)
+![Galleria Weather Card - Detailed Mode](screenshot-detail.png)
+
 ---
 
 ## Key Features
