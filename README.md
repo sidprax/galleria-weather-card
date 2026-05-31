@@ -24,7 +24,7 @@ The card is **100% self-contained**—all configurations, unit toggles, and asse
 
 1. Open **HACS** in your Home Assistant sidebar.
 2. Click the three dots in the top-right corner and select **Custom repositories**.
-3. Paste the URL of your repository: `https://github.com/YOUR_USERNAME/galleria-weather-card`
+3. Paste the URL of your repository: `https://github.com/sidprax/galleria-weather-card`
 4. Choose **Lovelace** as the category and click **Add**.
 5. Click the new card and select **Download**.
 6. Refresh your browser!
@@ -60,8 +60,8 @@ Copy this YAML package definition into your Home Assistant `configuration.yaml` 
 
 rest:
   - resource_template: >-
-      {% set lat = state_attr('zone.home', 'latitude') | default(40.721472, true) %}
-      {% set lon = state_attr('zone.home', 'longitude') | default(-74.039444, true) %}
+      {% set lat = state_attr('zone.home', 'latitude') %}
+      {% set lon = state_attr('zone.home', 'longitude') %}
       https://api.open-meteo.com/v1/forecast?latitude={{ lat }}&longitude={{ lon }}&timezone=auto&forecast_days=10&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,weather_code,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max
     scan_interval: 900 # Refresh weather data every 15 minutes
     timeout: 30
