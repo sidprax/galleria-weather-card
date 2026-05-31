@@ -129,6 +129,10 @@ temperature_unit: C
 time_format: 24h
 ```
 
+## Credits & Inspiration
+
+This project is inspired by the [clock-weather-card-hui-icons](https://github.com/samuelgoodell/clock-weather-card-hui-icons) repository by [Samuel Goodell](https://github.com/samuelgoodell). 
+
 ---
 
 ## License
