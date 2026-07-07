@@ -185,7 +185,7 @@ class GalleriaWeatherCard extends HTMLElement {
       ? import.meta.url.substring(0, import.meta.url.lastIndexOf("/") + 1)
       : "/hacsfiles/galleria-weather-card/";
     const isMeteoconCard = import.meta.url && import.meta.url.includes("meteocon");
-    const folder = isMeteoconCard ? "meteocons" : "icons";
+    const folder = isMeteoconCard ? "meteocons/fill" : "icons";
     return `${baseUrl}${folder}/${name}.svg`;
   }
 
