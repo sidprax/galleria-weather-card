@@ -992,3 +992,23 @@ class GalleriaWeatherCard extends HTMLElement {
 if (!customElements.get("galleria-weather-card")) {
   customElements.define("galleria-weather-card", GalleriaWeatherCard);
 }
+
+[
+  "galleria-weather-meteocon-card",
+  "galleria-weather-meteocon-card-v2",
+  "galleria-weather-meteocon-card-v3",
+  "galleria-weather-meteocon-card-v4",
+  "galleria-weather-meteocon-card-v5",
+  "galleria-weather-meteocon-card-v6",
+  "galleria-weather-meteocon-card-v7",
+  "galleria-weather-meteocon-card-v8",
+  "galleria-weather-meteocon-card-v9",
+  "galleria-weather-meteocon-card-v10",
+  "galleria-weather-meteocon-card-v11",
+  "galleria-weather-visual-card",
+  "galleria-weather-animated-card"
+].forEach(tag => {
+  if (!customElements.get(tag)) {
+    customElements.define(tag, class extends GalleriaWeatherCard {});
+  }
+});
