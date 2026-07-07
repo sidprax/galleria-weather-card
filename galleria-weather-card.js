@@ -526,7 +526,7 @@ class GalleriaWeatherCard extends HTMLElement {
             </div>
           </div>
           <div class="forecast-block">
-            <div class="block-title">Today Hourly</div>
+            <div class="block-title">Hourly</div>
             ${this._renderHourlyRail(hourlyRows)}
           </div>
           <div class="forecast-block">
@@ -730,6 +730,7 @@ class GalleriaWeatherCard extends HTMLElement {
           text-overflow: ellipsis;
         }
         .forecast-block { min-width: 0; }
+        .forecast-block + .forecast-block { margin-top: -6px; }
         .block-title {
           color: var(--secondary-text-color);
           font-size: 12px;
@@ -827,7 +828,7 @@ class GalleriaWeatherCard extends HTMLElement {
         .daily-list {
           display: grid;
           gap: 0;
-          max-height: 205px;
+          max-height: 198px;
           overflow-y: auto;
           padding-right: 0;
           scrollbar-width: none;
@@ -839,7 +840,7 @@ class GalleriaWeatherCard extends HTMLElement {
           grid-template-columns: 36px 34px 42px minmax(120px, 1fr) 42px 44px;
           align-items: center;
           gap: 6px;
-          min-height: 30px;
+          min-height: 28px;
           padding: 0 6px;
           border-radius: 0;
           background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018));
@@ -852,8 +853,8 @@ class GalleriaWeatherCard extends HTMLElement {
           font-weight: 800;
         }
         .day-icon {
-          width: 30px;
-          height: 30px;
+          width: 26px;
+          height: 26px;
           object-fit: contain;
         }
         .day-low,
