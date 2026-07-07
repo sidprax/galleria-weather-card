@@ -27,6 +27,60 @@ class GalleriaWeatherCard extends HTMLElement {
     return this.config?.compact ? 5 : 7;
   }
 
+  _escape(value) {
+    return String(value ?? "").replace(/[&<>'"]/g, (char) => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#39;", '"':"&quot;"
+    })[char]);
+  }
+
+  _alertIcon(eventName) {
+    const ev = (eventName || "").toLowerCase();
+    if (ev.includes("heat") || ev.includes("fire") || ev.includes("burn") || ev.includes("red flag")) return "mdi:thermometer-alert";
+    if (ev.includes("flood") || ev.includes("rain") || ev.includes("water") || ev.includes("surge")) return "mdi:water-alert";
+    if (ev.includes("snow") || ev.includes("blizzard") || ev.includes("winter") || ev.includes("ice") || ev.includes("freeze") || ev.includes("cold") || ev.includes("frost")) return "mdi:snowflake-alert";
+    if (ev.includes("wind") || ev.includes("gale") || ev.includes("dust")) return "mdi:weather-windy";
+    if (ev.includes("tornado") || ev.includes("funnel")) return "mdi:weather-tornado";
+    if (ev.includes("thunderstorm") || ev.includes("storm") || ev.includes("lightning")) return "mdi:weather-lightning";
+    return "mdi:alert-decagram";
+  }
+
+  _renderAlertBanner(alertState) {
+    if (!alertState) return "";
+    const count = parseInt(alertState.state || "0", 10);
+    const hasAlerts = !isNaN(count) && count > 0;
+    if (!hasAlerts) return "";
+
+    const attrs = alertState.attributes || {};
+    const eventName = attrs.event || "Weather Alert";
+    const severity = (attrs.severity || "Minor").toLowerCase();
+    const summary = attrs.summary || attrs.headline || "";
+    const expires = attrs.expires || "";
+    
+    let expiryStr = "";
+    if (expires) {
+      const d = new Date(expires);
+      if (!isNaN(d.getTime())) {
+        const use24h = this._timeSettings().use24h;
+        expiryStr = ` until ${this._fmtTime(expires, use24h)}`;
+      }
+    }
+
+    const badgeClass = ["extreme", "severe", "moderate", "minor"].includes(severity) ? severity : "other";
+    const alertIcon = this._alertIcon(eventName);
+
+    return `
+      <div class="alert-banner ${badgeClass}">
+        <ha-icon icon="${alertIcon}"></ha-icon>
+        <div class="alert-banner-content">
+          <div class="alert-banner-title">
+            ${this._escape(eventName)}${this._escape(expiryStr)}
+          </div>
+          ${summary ? `<div class="alert-banner-desc">${this._escape(summary)}</div>` : ""}
+        </div>
+      </div>
+    `;
+  }
+
   _pad(n) {
     return String(n).padStart(2, "0");
   }
@@ -452,6 +506,7 @@ class GalleriaWeatherCard extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <ha-card>
         <div class="weather-card ${this.config.compact ? "compact" : "detail"}">
+          ${this._renderAlertBanner(this._hass.states[this.config.alert_entity || "sensor.galleria_weather_alert"])}
           <div class="hero">
             <div class="hero-icon ${condition} ${isDay ? "day" : "night"} ${reduceMotion ? "reduce-motion" : ""}" style="--anim-dur:${intensity === "high" ? "2.8s" : intensity === "low" ? "6s" : "4s"}">
               <img src="${currentIconSrc}" alt="${this._codeText(code)}">
@@ -492,6 +547,56 @@ class GalleriaWeatherCard extends HTMLElement {
           overflow: hidden;
         }
         .weather-card { padding: 12px; display: grid; gap: 12px; }
+        .alert-banner {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 14px;
+          margin-bottom: 4px;
+          border-radius: 14px;
+          font-size: 12px;
+          line-height: 1.4;
+          font-weight: 500;
+          animation: alertPulse 2.4s infinite ease-in-out;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .alert-banner.extreme,
+        .alert-banner.severe {
+          background: rgba(244, 67, 54, 0.22);
+          color: #ff8a80;
+          border-color: rgba(244, 67, 54, 0.4);
+        }
+        .alert-banner.moderate {
+          background: rgba(255, 152, 0, 0.18);
+          color: #ffd180;
+          border-color: rgba(255, 152, 0, 0.35);
+        }
+        .alert-banner.minor {
+          background: rgba(255, 235, 59, 0.14);
+          color: #ffe57f;
+          border-color: rgba(255, 235, 59, 0.3);
+        }
+        .alert-banner.other {
+          background: rgba(255, 255, 255, 0.08);
+          color: #e0e0e0;
+          border-color: rgba(255, 255, 255, 0.15);
+        }
+        .alert-banner-content {
+          flex: 1;
+        }
+        .alert-banner-title {
+          font-weight: 700;
+          font-size: 13px;
+        }
+        .alert-banner-desc {
+          opacity: 0.88;
+          margin-top: 2px;
+          font-size: 11px;
+        }
+        @keyframes alertPulse {
+          0%, 100% { transform: scale(1); filter: brightness(1); }
+          50% { transform: scale(0.993); filter: brightness(1.18); }
+        }
         .hero {
           display: grid;
           grid-template-columns: 118px minmax(0, 1fr);

@@ -95,6 +95,7 @@ Ensure you reload rest configs or restart Home Assistant after saving this packa
 | `reduce_motion` | boolean | `false` | Disable animated background pulses and SVG drifts. |
 | `hourly_count` | integer | `24` | The number of hours to compile in the scroll rail (1 to 36). |
 | `daily_count` | integer | `7` | The number of days to display in the forecast rail (1 to 10). |
+| `alert_entity` | string | `sensor.galleria_weather_alert` | The sensor containing active weather alerts. Set to `none` to disable. |
 
 ---
 
