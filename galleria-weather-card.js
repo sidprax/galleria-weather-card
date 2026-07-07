@@ -181,11 +181,12 @@ class GalleriaWeatherCard extends HTMLElement {
   }
 
   _meteoconSrc(name) {
-    // Resolve dynamically relative to this script's location
     const baseUrl = import.meta.url
       ? import.meta.url.substring(0, import.meta.url.lastIndexOf("/") + 1)
       : "/hacsfiles/galleria-weather-card/";
-    return `${baseUrl}icons/${name}.svg`;
+    const isMeteoconCard = import.meta.url && import.meta.url.includes("meteocon");
+    const folder = isMeteoconCard ? "meteocons" : "icons";
+    return `${baseUrl}${folder}/${name}.svg`;
   }
 
   _conditionColor(condition, hour = 12) {
