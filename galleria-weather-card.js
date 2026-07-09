@@ -50,7 +50,7 @@ class GalleriaWeatherCard extends HTMLElement {
     const count = parseInt(stateStr, 10);
     const hasAlerts = !isNaN(count)
       ? count > 0
-      : (stateStr !== "" && !["off", "idle", "none", "unknown", "unavailable"].includes(stateStr));
+      : (stateStr !== "" && !["off", "idle", "none", "unknown", "unavailable", "clear", "no_alerts", "no alerts"].includes(stateStr));
     if (!hasAlerts) return "";
 
     const attrs = alertState.attributes || {};
