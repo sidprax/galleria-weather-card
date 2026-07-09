@@ -46,12 +46,15 @@ class GalleriaWeatherCard extends HTMLElement {
 
   _renderAlertBanner(alertState) {
     if (!alertState) return "";
-    const count = parseInt(alertState.state || "0", 10);
-    const hasAlerts = !isNaN(count) && count > 0;
+    const stateStr = String(alertState.state || "").toLowerCase().trim();
+    const count = parseInt(stateStr, 10);
+    const hasAlerts = !isNaN(count)
+      ? count > 0
+      : (stateStr !== "" && !["off", "idle", "none", "unknown", "unavailable"].includes(stateStr));
     if (!hasAlerts) return "";
 
     const attrs = alertState.attributes || {};
-    const eventName = attrs.event || "Weather Alert";
+    const eventName = attrs.event || (isNaN(parseInt(alertState.state, 10)) ? alertState.state : "Weather Alert");
     const severity = (attrs.severity || "Minor").toLowerCase();
     const summary = attrs.summary || attrs.headline || "";
     const expires = attrs.expires || "";
