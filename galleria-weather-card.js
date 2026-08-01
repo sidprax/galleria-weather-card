@@ -539,6 +539,7 @@ class GalleriaWeatherCard extends HTMLElement {
         </div>
       </ha-card>
       <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap');
         :host { display: block; }
         ha-card {
           background: rgba(25, 25, 25, 0.4);
@@ -547,7 +548,7 @@ class GalleriaWeatherCard extends HTMLElement {
           border: 1px solid rgba(255, 255, 255, 0.08);
           box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.25);
           color: var(--primary-text-color);
-          font-family: var(--primary-font-family);
+          font-family: 'Outfit', var(--primary-font-family), -apple-system, sans-serif;
           overflow: hidden;
         }
         .weather-card { padding: 12px; display: grid; gap: 12px; }
