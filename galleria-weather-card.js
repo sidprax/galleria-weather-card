@@ -187,9 +187,7 @@ class GalleriaWeatherCard extends HTMLElement {
     const baseUrl = import.meta.url
       ? import.meta.url.substring(0, import.meta.url.lastIndexOf("/") + 1)
       : "/hacsfiles/galleria-weather-card/";
-    const isMeteoconCard = import.meta.url && import.meta.url.includes("meteocon");
-    const folder = isMeteoconCard ? "meteocons/fill" : "icons";
-    return `${baseUrl}${folder}/${name}.svg`;
+    return `${baseUrl}icons/${name}.svg`;
   }
 
   _conditionColor(condition, hour = 12) {
@@ -449,7 +447,7 @@ class GalleriaWeatherCard extends HTMLElement {
     if (!this.shadowRoot || !this._hass) return;
     const state = this._hass.states[this.config.entity];
     if (!state) {
-      this.shadowRoot.innerHTML = `<ha-card><div class="missing">Weather entity not found: ${this.config.entity}</div></ha-card>`;
+      this.shadowRoot.innerHTML = `<ha-card><div class="missing">Weather entity not found: ${this._escape(this.config.entity)}</div></ha-card>`;
       return;
     }
 
@@ -539,7 +537,6 @@ class GalleriaWeatherCard extends HTMLElement {
         </div>
       </ha-card>
       <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap');
         :host { display: block; }
         ha-card {
           background: rgba(25, 25, 25, 0.4);
@@ -548,7 +545,7 @@ class GalleriaWeatherCard extends HTMLElement {
           border: 1px solid rgba(255, 255, 255, 0.08);
           box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.25);
           color: var(--primary-text-color);
-          font-family: 'Outfit', var(--primary-font-family), -apple-system, sans-serif;
+          font-family: var(--primary-font-family), -apple-system, sans-serif;
           overflow: hidden;
         }
         .weather-card { padding: 12px; display: grid; gap: 12px; }
@@ -998,23 +995,3 @@ class GalleriaWeatherCard extends HTMLElement {
 if (!customElements.get("galleria-weather-card")) {
   customElements.define("galleria-weather-card", GalleriaWeatherCard);
 }
-
-[
-  "galleria-weather-meteocon-card",
-  "galleria-weather-meteocon-card-v2",
-  "galleria-weather-meteocon-card-v3",
-  "galleria-weather-meteocon-card-v4",
-  "galleria-weather-meteocon-card-v5",
-  "galleria-weather-meteocon-card-v6",
-  "galleria-weather-meteocon-card-v7",
-  "galleria-weather-meteocon-card-v8",
-  "galleria-weather-meteocon-card-v9",
-  "galleria-weather-meteocon-card-v10",
-  "galleria-weather-meteocon-card-v11",
-  "galleria-weather-visual-card",
-  "galleria-weather-animated-card"
-].forEach(tag => {
-  if (!customElements.get(tag)) {
-    customElements.define(tag, class extends GalleriaWeatherCard {});
-  }
-});
