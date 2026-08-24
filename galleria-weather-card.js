@@ -995,3 +995,11 @@ class GalleriaWeatherCard extends HTMLElement {
 if (!customElements.get("galleria-weather-card")) {
   customElements.define("galleria-weather-card", GalleriaWeatherCard);
 }
+
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: "galleria-weather-card",
+  name: "Galleria Weather Card",
+  preview: false,
+  description: "A premium, animated Lovelace weather card featuring weather transitions and forecast timelines."
+});
