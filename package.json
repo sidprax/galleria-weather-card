@@ -1,8 +1,8 @@
 {
   "name": "galleria-weather-card",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "A premium, animated Lovelace weather card for Home Assistant featuring weather transitions and forecast timelines.",
-  "main": "galleria-weather-card.js",
+  "main": "dist/galleria-weather-card.js",
   "keywords": [
     "home-assistant",
     "homeassistant",

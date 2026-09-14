@@ -95,7 +95,7 @@ class GalleriaWeatherCard extends HTMLElement {
     let h = d.getHours();
     const ap = h >= 12 ? "PM" : "AM";
     h = h % 12 || 12;
-    return short ? `${h}${ap[0]}` : `${h}:${this._pad(d.getMinutes())} ${ap}`;
+    return short ? `${h}${ap[0]}` : `${h}:${this._pad(d.getMinutes())}\u00A0${ap}`;
   }
 
   _fmtTransitionTime(ts, use24h) {
@@ -686,14 +686,26 @@ class GalleriaWeatherCard extends HTMLElement {
           line-height: 1.25;
           margin-top: 5px;
         }
+        .metrics span {
+          white-space: nowrap;
+        }
         .clock {
-          font-size: 42px;
-          line-height: 0.95;
+          font-size: clamp(30px, 4.5vw, 40px);
+          line-height: 1;
           font-weight: 500;
           margin-top: 7px;
           letter-spacing: 0;
+          white-space: nowrap;
         }
-        .date { color: var(--secondary-text-color); font-size: 18px; margin-top: 3px; }
+        .date {
+          color: var(--secondary-text-color);
+          font-size: 14px;
+          line-height: 1.25;
+          margin-top: 3px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         .transition-pill {
           display: inline-flex;
           align-items: center;

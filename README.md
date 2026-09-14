@@ -22,14 +22,12 @@ The card is **100% self-contained**—all configurations, unit toggles, and asse
 
 ## 1. Installation
 
-### Method A: HACS Custom Repository (Recommended)
+### Method A: HACS (Recommended)
 
 1. Open **HACS** in your Home Assistant sidebar.
-2. Click the three dots in the top-right corner and select **Custom repositories**.
-3. Paste the URL of your repository: `https://github.com/sidprax/galleria-weather-card`
-4. Choose **Lovelace** as the category and click **Add**.
-5. Click the new card and select **Download**.
-6. Refresh your browser!
+2. Search for **Galleria Weather Card**.
+3. Click the card and select **Download**.
+4. Refresh your browser!
 
 ### Method B: Manual Installation
 
